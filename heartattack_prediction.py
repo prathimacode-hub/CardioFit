@@ -26,5 +26,5 @@ model=LogisticRegression(max_iter=1200000)
 
 model.fit(X_train,y_train)
 
-with open('heartattack_prediction','wb') as f:
+with open('heartattack_prediction.pk1','wb') as f:
 	pickle.dump(model,f)
