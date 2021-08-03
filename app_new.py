@@ -55,10 +55,10 @@ def kidney():
 		y_pred=reg.predict(new)
 		return render_template("result1.html",y_pred=y_pred)
 
-	
+
 @app.route('/')
-def index():
-	return render_template('index.html')
+def home():
+	return render_template('home.html')
 
 if __name__ == '__main__':
 	app.run(debug=True)
