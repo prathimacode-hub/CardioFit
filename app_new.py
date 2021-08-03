@@ -13,35 +13,49 @@ def stroke():
 	if request.method=='GET':
 		return render_template('stroke_prediction_form.html')
 	else:
-		with open('stroke_prediction','rb') as f:
-			model=pickle.load(f)
+		else:
+		ds=pd.read_csv('stroke_prediction.csv')
+		X=ds.drop('target',axis=1)
+		y=ds.iloc[:,-1]
+		X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.10,random_state=0)
+		reg=LogisticRegression(max_iter=1200000)
+		reg.fit(X_train,y_train)
 		Age=int(request.form['Age'])
-		Blood_Pressure=int(request.form['Blood_Pressure'])
-		Specific_Gravity=float(request.form['Specific_Gravity'])
-		Albumin=int(request.form['Albumin'])
-		Sugar=int(request.form['Sugar'])
-		Red_Blood_Cells=int(request.form['Red_Blood_Cells'])
-		new=np.array([[Age,Blood_Pressure,Specific_Gravity,Albumin,Sugar,Red_Blood_Cells]])
-		y_pred=model.predict(new)
-		return render_template('result.html',y_pred=y_pred)
+		gender=int(request.form['gender'])
+		cp=int(request.form['cp'])
+		trestbps=int(request.form['trestbps'])
+		chol=int(request.form['chol'])
+		fbs=int(request.form['fbs'])
+		restecg=int(request.form['restecg'])
+		thalach=int(request.form['thalach'])
+		new=np.array([[Age,gender,cp,trestbps,chol,fbs,restecg,thalach,ds['exang'].mean(),ds['oldpeak'].mean(),ds['slope'].mean(),ds['ca'].mean(),ds['thal'].mean()]])
+		y_pred=reg.predict(new)
+		return render_template("result.html",y_pred=y_pred)
 	
 @app.route('/heartattack_prediction',methods=['GET','POST'])
 def kidney():
 	if request.method=='GET':
 		return render_template('heart_attack_prediction.html')
 	else:
-		with open('heartatack_prediction','rb') as f:
-			model=pickle.load(f)
+		ds=pd.read_csv('heartattack_prediction.csv')
+		X=ds.drop('target',axis=1)
+		y=ds.iloc[:,-1]
+		X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.10,random_state=0)
+		reg=LogisticRegression(max_iter=1200000)
+		reg.fit(X_train,y_train)
 		Age=int(request.form['Age'])
-		Blood_Pressure=int(request.form['Blood_Pressure'])
-		Specific_Gravity=float(request.form['Specific_Gravity'])
-		Albumin=int(request.form['Albumin'])
-		Sugar=int(request.form['Sugar'])
-		Red_Blood_Cells=int(request.form['Red_Blood_Cells'])
-		new=np.array([[Age,Blood_Pressure,Specific_Gravity,Albumin,Sugar,Red_Blood_Cells]])
-		y_pred=model.predict(new)
-		return render_template('result1.html',y_pred=y_pred)
+		gender=int(request.form['gender'])
+		cp=int(request.form['cp'])
+		trestbps=int(request.form['trestbps'])
+		chol=int(request.form['chol'])
+		fbs=int(request.form['fbs'])
+		restecg=int(request.form['restecg'])
+		thalach=int(request.form['thalach'])
+		new=np.array([[Age,gender,cp,trestbps,chol,fbs,restecg,thalach,ds['exang'].mean(),ds['oldpeak'].mean(),ds['slope'].mean(),ds['ca'].mean(),ds['thal'].mean()]])
+		y_pred=reg.predict(new)
+		return render_template("result1.html",y_pred=y_pred)
 
+	
 @app.route('/')
 def index():
 	return render_template('index.html')
