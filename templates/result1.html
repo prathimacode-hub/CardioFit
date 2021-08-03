@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<style type="text/css">
+.new{
+    padding: 30px;
+	position: relative;
+	background: linear-gradient(45deg, #443B96, #F60B68, #F4483A);
+	background-size: 500% 500%;
+	animation: change-gradient 5s ease-in-out infinite;
+}
+@keyframes change-gradient {
+	0%{
+		background-position: 0 50%;
+	}
+	50%{
+		background-position: 100% 50%;
+	}
+	100%{
+		background-position: 0 50%;
+	}
+}
+
+body {
+  height: 100%;
+} 
+
+</style>
+
+<section class="new" style="height: 30%;width: 100%;
+	margin-top:5%;">
+  <h2 style="margin-left: 40%;">Heart Attack Predictor</h2>
+  <h5 style="margin-left: 37%;">A ML Algorithm That Predict Heart Attack Patients</h5>
+</section>
+
+
+
+{% if y_pred==0 %}
+
+<div id="content">
+  <h1 style="color: green;margin-left: 25%;margin-top: 15%;">Great You Don't Have Heart Attack Symptoms
+  </h1> 
+</div>
+
+		
+{% endif %}
+{% if y_pred==1 %}
+	
+	<h1 style="color: red;margin-left: 30%;margin-left: 25%;margin-top: 15%;">You have Heart Attack Symptoms</h1>
+
+{% endif %}
+
+
+
+{% endblock %}
