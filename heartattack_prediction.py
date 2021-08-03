@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 import pickle
 
 
-df=pd.read_csv('heartatack_prediction.csv')
+df=pd.read_csv('heartattack_prediction.csv')
 
 df['classification'].replace('ckd\t','ckd',inplace=True)
 df.interpolate(inplace=True)
